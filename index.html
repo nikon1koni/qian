@@ -103,26 +103,28 @@ h1 em::after{content:"";position:absolute;left:2%;right:2%;bottom:-9px;height:1p
 .tube-stage{position:relative;width:100%;height:430px}
 .halo{position:absolute;left:50%;bottom:18px;width:330px;height:330px;transform:translateX(-50%);
   border-radius:50%;background:radial-gradient(circle, rgba(201,164,92,.13), transparent 64%);filter:blur(8px)}
-.tube{position:absolute;left:50%;bottom:0;width:196px;height:246px;transform:translateX(-50%);z-index:4;
+.tube{position:absolute;left:50%;bottom:0;width:196px;height:246px;transform:translateX(-50%);
   background:
     linear-gradient(90deg, rgba(0,0,0,.42), transparent 16%, rgba(255,236,190,.18) 46%, transparent 62%, rgba(0,0,0,.46)),
     linear-gradient(90deg,#5b341b,#9b6434 22%,#c58a4e 50%,#8a572d 78%,#4a2a16);
   border-radius:46% 46% 16px 16px / 7% 7% 3% 3%;
   box-shadow:0 34px 60px rgba(0,0,0,.55), inset 0 0 0 1px rgba(255,225,170,.16);
 }
-.tube .rim{position:absolute;left:0;right:0;top:-13px;height:26px;border-radius:50%;
+.tube .rim{position:absolute;left:0;right:0;top:-13px;height:26px;border-radius:50%;z-index:1;
   background:radial-gradient(ellipse at 50% 35%, #2b1a0f, #170e08 64%);
   box-shadow:0 0 0 5px #7b4a27,0 0 0 7px rgba(255,222,165,.25),inset 0 3px 10px #000}
-.tube .body{position:absolute;inset:16px 0 12px;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  border-top:1px solid rgba(255,230,180,.2);border-bottom:1px solid rgba(255,230,180,.16)}
+.tube .lip{display:none}
+.tube .lip svg{display:block;width:100%;height:100%}
+.tube .body{position:absolute;inset:16px 0 12px;z-index:5;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  border-top:0;border-bottom:1px solid rgba(255,230,180,.16)}
 .tube .body::before,.tube .body::after{content:"";position:absolute;left:18px;right:18px;height:1px;background:rgba(255,225,170,.28)}
 .tube .body::before{top:18px}.tube .body::after{bottom:18px}
 .tube-mark{font-size:62px;color:#2c160b;opacity:.66;letter-spacing:.06em;text-shadow:0 1px 0 rgba(255,230,180,.28)}
 .tube-sub{margin-top:8px;font-size:9px;letter-spacing:.4em;color:#3a1f10;opacity:.7}
-.band{position:absolute;left:0;right:0;bottom:42px;height:5px;
+.band{position:absolute;left:0;right:0;bottom:42px;height:5px;z-index:6;
   background:linear-gradient(90deg,rgba(70,36,16,.5),#d1a15f,rgba(70,36,16,.5));opacity:.55}
-.sticks{position:absolute;left:0;right:0;bottom:222px;z-index:3;pointer-events:none}
-.sticks i{position:absolute;bottom:0;left:calc(50% + var(--x));width:7px;height:var(--h);
+.sticks{position:absolute;left:0;right:0;top:0;bottom:0;z-index:2;pointer-events:none;--rx:66px;--dz:16px}
+.sticks i{position:absolute;bottom:calc(93% + (1 - var(--d)) * 13%);left:calc(50% + var(--x) * var(--rx));width:var(--w,7px);height:var(--h);z-index:var(--z,1);
   transform:rotate(var(--a));transform-origin:bottom center;border-radius:3px 3px 1px 1px;
   background:linear-gradient(90deg,#8e5c32,#e0b77d 42%,#a46d3c 72%,#6d4322);
   box-shadow:0 0 0 1px rgba(0,0,0,.22),0 3px 8px rgba(0,0,0,.3)}
@@ -138,8 +140,8 @@ h1 em::after{content:"";position:absolute;left:2%;right:2%;bottom:-9px;height:1p
 .tassel::after{content:"";position:absolute;left:-10px;bottom:-22px;width:21px;height:34px;
   background:repeating-linear-gradient(90deg,#8f2a20 0 2px,transparent 2px 4px);opacity:.75;
   -webkit-mask-image:linear-gradient(#000 20%,transparent);mask-image:linear-gradient(#000 20%,transparent)}
-.rise-layer{position:absolute;inset:0;z-index:9;pointer-events:none}
-.rise-stick{position:absolute;left:calc(50% + var(--x));bottom:222px;width:7px;height:var(--h);
+.rise-layer{position:absolute;inset:0;z-index:9;pointer-events:none;--rx:58px}
+.rise-stick{position:absolute;left:calc(50% + var(--x) * var(--rx));bottom:222px;width:var(--w,7px);height:var(--h);
   border-radius:3px 3px 1px 1px;
   background:linear-gradient(90deg,#8e5c32,#e0b77d 42%,#a46d3c 72%,#6d4322);
   box-shadow:0 0 0 1px rgba(0,0,0,.22),0 3px 8px rgba(0,0,0,.3);animation:stick-rise .6s cubic-bezier(.2,.9,.25,1) forwards}
@@ -255,9 +257,10 @@ body.locked{overflow:hidden}
   .oracle{min-height:0;margin-top:8px}
   .tube-stage{height:340px}
   .tube{width:168px;height:214px}
-  .sticks{bottom:192px}
-  .sticks i{width:6px}
-  .rise-stick{bottom:192px;width:6px}
+  .sticks{--rx:56px;--dz:14px}
+  .sticks i{width:var(--w,6px)}
+  .rise-layer{--rx:56px}
+  .rise-stick{bottom:192px;width:var(--w,6px)}
   .halo{width:270px;height:270px}
   .tassel{left:calc(50% + 96px);top:8px;height:84px}
   .draw{margin-top:10px}
@@ -277,8 +280,9 @@ body.locked{overflow:hidden}
   .oracle{margin-top:8px}
   .tube-stage{height:248px}
   .tube{width:126px;height:164px}
-  .sticks{bottom:148px}
+  .sticks{--rx:44px;--dz:11px}
   .sticks i{height:calc(var(--h) * .42)}
+  .rise-layer{--rx:44px}
   .rise-stick{display:none}
   .halo{width:210px;height:210px}
   .tube-mark{font-size:42px}
@@ -302,6 +306,8 @@ body.locked{overflow:hidden}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
   html{scroll-behavior:auto}
 }
+.tube .front{position:absolute;left:0;right:0;top:0;bottom:0;z-index:4;pointer-events:none}
+.tube .front svg{display:block;width:100%;height:100%}
 </style>
 </head>
 <body>
@@ -346,11 +352,13 @@ body.locked{overflow:hidden}
       <div class="oracle" id="oracle">
         <div class="tube-stage">
           <div class="halo"></div>
-          <div class="sticks" id="sticks"></div>
           <div class="tube" aria-hidden="true">
             <div class="rim"></div>
             <div class="body"><span class="tube-mark">籤</span><span class="tube-sub">六十四卦</span></div>
             <div class="band"></div>
+            <div class="sticks" id="sticks"></div>
+            <div class="front"><svg viewBox="0 0 200 100" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="frontG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5b341b"/><stop offset=".22" stop-color="#9b6434"/><stop offset=".5" stop-color="#c58a4e"/><stop offset=".78" stop-color="#8a572d"/><stop offset="1" stop-color="#4a2a16"/></linearGradient></defs><path d="M0,0 Q100,26 200,0 L200,100 L0,100 Z" fill="url(#frontG)"/><path d="M0,0 Q100,26 200,0" fill="none" stroke="rgba(255,226,170,.35)" stroke-width=".8"/></svg></div>
+            <div class="lip"><svg viewBox="0 0 200 26" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="lipG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c08b4c"/><stop offset=".45" stop-color="#8a5a2e"/><stop offset="1" stop-color="#4a2a16"/></linearGradient></defs><path d="M0,13 A100,13 0 0 1 200,13" fill="none" stroke="url(#lipG)" stroke-width="6"/><path d="M4,13 A96,12 0 0 0 196,13" fill="none" stroke="rgba(255,226,170,.28)" stroke-width="1"/></svg></div>
           </div>
           <div class="rise-layer" id="riseLayer" aria-hidden="true"></div>
           <div class="tassel" aria-hidden="true"></div>
@@ -479,9 +487,15 @@ body.locked{overflow:hidden}
     var frag = document.createDocumentFragment();
     for (var i = 0; i < 64; i++) {
       var el = document.createElement("i");
-      el.style.setProperty("--a", (Math.random() * 32 - 16).toFixed(1) + "deg");
-      el.style.setProperty("--x", (Math.random() * 116 - 58).toFixed(0) + "px");
-      el.style.setProperty("--h", (132 + Math.random() * 72).toFixed(0) + "px");
+      var d = Math.random();
+      var edge = Math.sqrt(Math.max(0, 1 - Math.pow(2 * d - 1, 2)));
+      var x = (Math.random() * 2 - 1) * (0.55 + 0.45 * edge);
+      el.style.setProperty("--d", d.toFixed(3));
+      el.style.setProperty("--x", x.toFixed(3));
+      el.style.setProperty("--w", (5.8 + d * 2.2).toFixed(1) + "px");
+      el.style.setProperty("--h", ((132 + Math.random() * 72) * (0.9 + d * 0.14)).toFixed(0) + "px");
+      el.style.setProperty("--a", (x * 9 + (Math.random() * 10 - 5)).toFixed(1) + "deg");
+      el.style.zIndex = String(1 + Math.round(d * 8));
       el.style.animationDelay = (Math.random() * -.4).toFixed(2) + "s";
       frag.appendChild(el);
       stickEls.push(el);

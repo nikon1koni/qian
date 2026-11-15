@@ -194,7 +194,8 @@ h1 em::after{content:"";position:absolute;left:2%;right:2%;bottom:-9px;height:1p
 .hex .ln.yin i:first-child,.hex .ln.yin i:last-child{flex:1}
 .hex .ln.yin{gap:14px}
 .hex-labels{display:flex;justify-content:center;gap:14px;margin-top:9px;font-size:9px;letter-spacing:.2em;color:#8a6237}
-.poem{margin:26px 0 0;padding:24px 10px 24px;text-align:center;border-top:1px solid rgba(90,55,20,.18);border-bottom:1px solid rgba(90,55,20,.18);position:relative}
+.poem-label{margin:20px 0 0;text-align:center;font-size:10px;letter-spacing:.34em;color:#9a7f58}
+.poem{margin:8px 0 0;padding:24px 10px 24px;text-align:center;border-top:1px solid rgba(90,55,20,.18);border-bottom:1px solid rgba(90,55,20,.18);position:relative}
 .poem::before,.poem::after{content:"「";position:absolute;color:rgba(169,52,38,.32);font-size:28px;line-height:1}
 .poem::before{left:0;top:12px}.poem::after{content:"」";right:0;bottom:6px}
 .poem p{margin:0;font-size:clamp(18px,2.4vw,24px);line-height:1.95;letter-spacing:.14em;color:#2b2013}
@@ -574,6 +575,7 @@ body.locked{overflow:hidden}
         '</div>' +
         '<div class="hex">' + hexLines(q.bits) + '</div>' +
         '<div class="hex-labels"><span>上卦 ' + esc(q.upper) + '</span><span>下卦 ' + esc(q.lower) + '</span></div>' +
+        '<p class="poem-label">卦 辞</p>' +
         '<div class="poem">' + poem + '</div>' +
         '<div class="infer' + hit("infer") + '"><b>推 断</b><p>' + esc(q.infer) + '</p></div>' +
         '<div class="facts">' + facts.map(function(f){
